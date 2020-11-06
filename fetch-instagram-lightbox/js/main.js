@@ -15,12 +15,19 @@ function appendPosts(posts) {
     let thumbnail = post.node.thumbnail_src;
     let image = post.node.display_url;
     let url = `https://www.instagram.com/p/${post.node.shortcode}/`
-
-    htmlTemplate += /*html*/ `
-        <a href="${image}">
+    if (post.node.is_video) {
+      htmlTemplate += /*html*/ `
+        <a href="${post.node.video_url}" class="glightbox" >
           <img src="${thumbnail}">
         </a>
     `;
+    } else {
+      htmlTemplate += /*html*/ `
+        <a href="${image}" class="glightbox" data-type="image">
+          <img src="${thumbnail}">
+        </a>
+    `;
+    }
   }
 
   document.querySelector("#lightgallery").innerHTML = htmlTemplate;
@@ -28,11 +35,12 @@ function appendPosts(posts) {
 }
 
 function initLightGallery() {
-  lightGallery(document.getElementById('lightgallery'), {
-    fullScreen: false,
-    download:false
+  const lightbox = GLightbox({
+    touchNavigation: true,
+    loop: true,
+    autoplayVideos: true
   });
 }
 
-fetchInstagramPosts("cederdorff");
+fetchInstagramPosts("renevinther");
 

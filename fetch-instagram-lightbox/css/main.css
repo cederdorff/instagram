@@ -72,6 +72,9 @@ button {
   height: auto;
 }
 
-.lg-toolbar {
-  background-color: transparent;
+
+@media (min-width: 769px) {
+  .goverlay {
+    background: rgba(0, 0, 0);
+  }
 }
